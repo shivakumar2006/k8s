@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment 
+metadata: 
+  name: backend 
+  labels: 
+    app: backend 
+spec: 
+  replicas: 1 
+  selector: 
+    matchLabels: 
+      app: backend 
+  template: 
+    metadata: 
+      labels: 
+        app: backend 
+    spec: 
+      containers: 
+        - name: backend 
+          image: shivakumar2006/backend 
+          ports: 
+          - containerPort: 8080 
+          env: 
+          - name: MONGO_USERNAME
+            valueFrom: 
+              secretKeyRef:
+                name: mongodb-secret
+                key: mongo-root-username 
+          - name: MONGO_PASSWORD
+            valueFrom: 
+              secretKeyRef:
+                name: mongodb-secret 
+                key: mongo-root-password
+          - name: PORT 
+            valueFrom: 
+              configMapKeyRef:
+                name: go-backend-config 
+                key: PORT 
+          - name: LOG_LEVEL 
+            valueFrom: 
+              configMapKeyRef:
+                name: go-backend-config
+                key: LOG_LEVEL 
