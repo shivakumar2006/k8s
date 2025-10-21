@@ -13,7 +13,7 @@ func main() {
 	}
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintln(w, "Hello from go backend running form kubernetes 🚀")
+		fmt.Fprintln(w, "Hello from go backend running from kubernetes 🚀")
 	})
 	fmt.Println("🚀 Server running on port : ", port)
 	http.ListenAndServe(":"+port, nil)
